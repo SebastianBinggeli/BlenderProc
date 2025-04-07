@@ -397,10 +397,10 @@ class _CocoWriterUtility:
         polygons = []
         # pad mask to close contours of shapes which start and end at an edge
         padded_binary_mask = np.pad(binary_mask, pad_width=1, mode='constant', constant_values=0)
-        contours = np.array(measure.find_contours(padded_binary_mask, 0.5), dtype=object)
-        # Reverse padding
-        contours -= 1
+        contours = measure.find_contours(padded_binary_mask, 0.5)
         for contour in contours:
+            # Reverse padding
+            contour -= 1
             # Make sure contour is closed
             contour = _CocoWriterUtility.close_contour(contour)
             # Approximate contour by polygon
